@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To Do List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f3f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    .d-flex{
+        display: flex;
+    }
+    a {
+      text-decoration: none;
+    }
+
+    form {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      margin-bottom: 40px;
+      max-width: 800px;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group select,
+    .task-input input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .form-group > div {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #800000;
+      box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.2);
+    }
+
+    .task-input {
+      margin-bottom: 20px;
+    }
+
+    .submit-btn {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button[type="submit"] {
+      padding: 12px 24px;
+      background-color: #800000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #a00000;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(128, 0, 0, 0.3);
+    }
+
+    .task-list {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: start;
+    }
+
+    .task-card {
+      width: 100%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .task-title-pill {
+      background-color: #800000;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 8px;
+      display: inline-block;
+      align-self: self-start;
+      margin-bottom: 15px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+
+    .bottom-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      background-color: #f0f0f0;
+      padding: 6px 14px;
+      margin: 0px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-action {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-edit {
+      background: transparent;
+      border: 1px solid #ffc107;
+      color: #ffc107;
+    }
+
+    .btn-edit:hover {
+      background-color: #e0a800;
+      color: #fff;
+
+    }
+
+    .btn-delete {
+      background: transparent;
+      border: 1px solid #dc3545;
+      color: #dc3545;
+    }
+
+    .btn-delete:hover {
+      background-color: #bb2d3b;
+      color: #fff;
+    }
+
+    .btn-status{
+      background: transparent;
+      border: 1px solid #800000;
+      color: #800000;
+    }
+
+    .btn-status:hover{
+      background-color: #800000;
+      color: white;
+    }
+    .pill.completed {
+  background-color: #4caf50; 
+  color: white;
+}
+
+.pill.pending {
+  background-color: #f0f0f0; 
+  color:  black;
+}
+.chaked{
+  padding: 0 !important;
+  margin-right: 10px ;
+}
+
+
+    @media (max-width: 768px) {
+      .task-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <% if (task) { %>
+    <form action="/edit-task/<%= task.id %>" method="post">
+      <div class="form-group">
+        <div>
+          <input type="text" name="title" placeholder="Task Title" value="<%= task.title %>" required>
+        </div>
+        <div>
+          <input type="date" name="date" value="<%= task.date %>" required>
+        </div>
+        <div>
+          <select name="Priority" required>
+            <option disabled>Select Priority</option>
+            <option value="Low" <%= task.Priority.trim() === 'Low' ? 'selected' : '' %>>Priority Low</option>
+            <option value="Medium" <%= task.Priority.trim() === 'Medium' ? 'selected' : '' %>>Priority Medium</option>
+            <option value="High" <%= task.Priority.trim() === 'High' ? 'selected' : '' %>>Priority High</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="task-input">
+        <input type="text" name="desc" placeholder="Task Description" value="<%= task.desc %>" required>
+      </div>
+  
+      <div class="submit-btn">
+        <button type="submit">Update Task</button>
+      </div>
+    </form>
+  <% } else { %>
+    <form action="/add-task" method="post">
+      <div class="form-group">
+        <div>
+          <input type="text" name="title" placeholder="Task Title" required>
+        </div>
+        <div>
+          <input type="date" name="date" required>
+        </div>
+        <div>
+          <select name="Priority" required>
+            <option selected disabled>Select Priority</option>
+            <option value="Low">Priority Low</option>
+            <option value="Medium">Priority Medium</option>
+            <option value="High">Priority High</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="task-input">
+        <input type="text" name="desc" placeholder="Task Description" required>
+      </div>
+  
+      <div class="submit-btn">
+        <button type="submit">Add Task</button>
+      </div>
+    </form>
+  <% } %>
+  
+
+  <div class="task-list">
+    <% Tasks.forEach(task => { %>
+      <div class="task-card">
+        <div class="task-title-pill"><%= task.title %></div>
+        <p><%= task.desc %></p>
+  
+        <div class="bottom-section">
+          <div class="d-flex">
+            <div class="pill"><%= task.date %></div>
+            <div class="pill"><%= task.Priority %></div>
+            <div class="pill <%= task.status === 'completed' ? 'completed' : 'pending' %>">
+              <%= task.status === 'completed' ? 'Completed' : 'Pending' %>
+            </div>
+          </div>
+  
+          <div >
+           </form>
+  
+            <% if (task.status !== 'completed') { %>
+            <a href="/edit-task/<%= task.id %>" class="btn-edit btn-action">Edit</a> 
+            <a href="/delete-task/<%= task.id %>" class="btn-delete btn-action">Delete</a> 
+            <% } %>
+            <form action="/toggle-status/<%= task.id %>" class="chaked" method="POST" style="display: inline;">
+              <a href="#" class="btn-status btn-action">Task status
+              <input type="checkbox" name="status" onchange="this.form.submit()" <%= task.status === 'completed' ? 'checked' : '' %> />
+            </a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+  
+</body>
+</html>
