@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BookStore - Premium Book Collection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="Home.css">
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <i class="fas fa-book-open"></i>
+      BookStore
+    </div>
+    <div class="nav">
+      <a href="/add-book"><i class="fas fa-plus-circle"></i> Add Book</a>
+      <a href="#"><i class="fas fa-book"></i> Collection</a>
+      <a href="#"><i class="fas fa-user"></i> Account</a>
+      <a href="#"><i class="fas fa-cog"></i> Settings</a>
+    </div>
+  </div>
+
+  <div class="book_info">
+    <h1>Our Premium Collection</h1>
+    
+    <div class="stats-bar">
+      <div class="stat-item">
+        <i class="fas fa-book"></i>
+        <span>Total Books: <strong>142</strong></span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-tags"></i>
+        <span>Genres: <strong>18</strong></span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-user-edit"></i>
+        <span>Authors: <strong>76</strong></span>
+      </div>
+    </div>
+
+    <div class="book_cards">
+     
+  <% Books.forEach(book => { %>
+    <div class="book_card">
+      <div class="img_container">
+        <img src="<%= book.image %>" alt="<%= book.title %>">
+      </div>
+
+      <div class="book_details">
+        <h2><%= book.title %></h2>
+        <p class="price-tag">₹<%= book.price %></p>
+        <p class="genre-tag"><%= book.genre %></p>
+        <p class="publish_date"><i class="far fa-calendar-alt"></i> Published: <%= book.publishDate %></p>
+        <p><strong>Author:</strong> <%= book.author %></p>
+        <div class="desc-container">
+          <p><strong>Description:</strong> <%= book.desc %></p>
+        </div>
+        <div class="card-actions">
+          <a href="/edit-book/<%= book._id %>" class="edit-btn">
+            <i class="fas fa-edit"></i> Edit
+          </a>
+          <a href="/delete-book/<%= book._id %>" class="delete-btn">
+            <i class="fas fa-trash"></i> Delete
+          </a>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+  
+
+    </div>
+  </div>
+</body>
+</html>
