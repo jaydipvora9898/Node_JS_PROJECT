@@ -1,0 +1,160 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="form.css">
+
+</head>
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg pvr-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand text-light fw-bold fs-4" href="/">🎬 PVR Cinemas</a>
+        <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPVR" aria-controls="navbarPVR" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon navbar-dark-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarPVR">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-light" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link text-light" href="/add_movie">Add Movie</a> -->
+            </li>
+          </ul>
+          <form class="d-flex" role="search" action="/search" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search Movies..." name="q" aria-label="Search">
+            <button class="btn btn-warning" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h2><i class="fas fa-film"></i> Add New Movie</h2>
+        </div>
+        
+        <div class="form-body">
+            <form action="/add-movie" method="POST" enctype="multipart/form-data" class="row g-3">
+                
+                <div class="col-md-6 position-relative">
+                    <label class="form-label">Movie Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter movie name" required>
+                    <div class="movie-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label class="form-label">Movie Description</label>
+                    <input type="text" class="form-control" name="desc" placeholder="Enter movie description" required>
+                    <div class="movie-icon">
+                        <i class="fas fa-align-left"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-4 position-relative">
+                    <label class="form-label">Age Validation</label>
+                    <input type="number" class="form-control" name="ageValidation" placeholder="Minimum age" min="0" max="21" required>
+                    <div class="movie-icon">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-4 position-relative">
+                    <label class="form-label">Movie Image</label>
+                    <input type="file" class="form-control" name="image" required accept="image/*">
+                    <div class="movie-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-4 position-relative">
+                    <label class="form-label">Movie Status</label>
+                    <select name="status" class="form-select">
+                        <option value="Release">Release</option>
+                        <option value="Re-Release">Re-Release</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <div class="movie-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label class="form-label">Movie Category</label>
+                    <select name="category" class="form-select">
+                        <option value="Animation">Animation</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Biography">Biography</option>
+                        <option value="Action">Action</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Adventure">Adventure</option>
+                    </select>
+                    <div class="movie-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label class="form-label">Movie Language</label>
+                    <select name="language" class="form-select">
+                        <option  value="Hindi">Hindi</option>
+                        <option value="English">English</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Tamil">Tamil</option>
+                        <option value="Telgu">Telgu</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Bhojpuri">Bhojpuri</option>
+                        <option value="Punjabi">Punjabi</option>
+                        <option value="Bengali">Bengali</option>
+                    </select>
+                    <div class="movie-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label class="form-label">Duration (in minutes)</label>
+                    <input type="number" class="form-control" name="duration" placeholder="Enter duration" min="1" required>
+                    <div class="movie-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label class="form-label">Rating</label>
+                    <input type="number" step="0.1" class="form-control" name="rating" placeholder="Enter rating" min="0" max="10" required>
+                    <div class="movie-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="col-12 btn-container">
+                    <button type="submit" class="btn btn-pvr fw-bold px-5 py-3">
+                        <i class="fas fa-plus-circle me-2"></i> Add Movie
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        
+        <div class="form-footer">
+            <p>© 2025 PVR Cinemas Premium Experience. All rights reserved.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html> 

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+  <style>
+    :root {
+    --pvr-dark: #0c0c0f;
+    --pvr-red: #e50914;
+    --pvr-gold: #d4af37;
+    --pvr-gray: #232323;
+    --pvr-light: #f5f5f5;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--pvr-light);
+    padding: 2rem;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-card {
+    background: linear-gradient(145deg, #1a1a1a, #141414);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.form-header {
+    background: linear-gradient(135deg, var(--pvr-gold), #b8860b);
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+   
+}
+
+.form-header h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 1.5px;
+    position: relative;
+    z-index: 2;
+}
+
+.form-header i {
+    margin-right: 12px;
+    font-size: 1.8rem;
+    vertical-align: middle;
+}
+
+.form-body {
+    padding: 2.5rem;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: var(--pvr-gold);
+    font-size: 1rem;
+}
+
+.form-control, .form-select {
+    background-color: rgba(35, 35, 35, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--pvr-light);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: rgba(35, 35, 35, 0.9);
+    border-color: var(--pvr-gold);
+    box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+    color: var(--pvr-light);
+}
+
+.form-control::placeholder {
+    color: #999;
+}
+
+.form-row {
+    margin-bottom: 1.5rem;
+}
+
+.btn-pvr {
+    background: linear-gradient(135deg, var(--pvr-gold), #b8860b);
+    color: #000;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-pvr::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e6c158, #d4af37);
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.btn-pvr:hover::before {
+    left: 0;
+}
+
+.btn-pvr:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
+}
+
+.btn-container {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.form-footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(12, 12, 15, 0.8);
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.form-footer a {
+    color: var(--pvr-gold);
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+.movie-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(212, 175, 55, 0.3);
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    .form-body {
+        padding: 1.5rem;
+    }
+    
+    .form-header h2 {
+        font-size: 1.6rem;
+    }
+}
+
+.movie-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(212, 175, 55, 0.3);
+    font-size: 1.2rem;
+}
+
+/* Extra responsiveness for new fields */
+@media (max-width: 768px) {
+    .form-body {
+        padding: 1.5rem;
+    }
+    .form-header h2 {
+        font-size: 1.6rem;
+    }
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg pvr-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand text-light fw-bold fs-4" href="/">🎬 PVR Cinemas</a>
+        <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPVR" aria-controls="navbarPVR" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon navbar-dark-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarPVR">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-light" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="/add_movie">Add Movie</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search" action="/search" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search Movies..." name="q" aria-label="Search">
+            <button class="btn btn-warning" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h2><i class="fas fa-film"></i> Add New Movie</h2>
+        </div>
+        
+        <div class="form-body">
+          <form action="/edit-movie/<%= movies._id %>" method="POST" enctype="multipart/form-data" class="row g-3">
+      
+              <div class="col-md-6 position-relative">
+                  <label class="form-label">Movie Name</label>
+                  <input type="text" class="form-control" name="name" value="<%= movies.name %>" placeholder="Enter movie name" required>
+                  <div class="movie-icon">
+                      <i class="fas fa-ticket-alt"></i>
+                  </div>
+              </div>
+      
+              <div class="col-md-6 position-relative">
+                  <label class="form-label">Movie Description</label>
+                  <input type="text" class="form-control" name="desc" value="<%= movies.desc %>" placeholder="Enter movie description" required>
+                  <div class="movie-icon">
+                      <i class="fas fa-align-left"></i>
+                  </div>
+              </div>
+      
+              <div class="col-md-4 position-relative">
+                  <label class="form-label">Age Validation</label>
+                  <input type="number" class="form-control" name="ageValidation" value="<%= movies.ageValidation %>" placeholder="Minimum age" min="0" max="21" required>
+                  <div class="movie-icon">
+                      <i class="fas fa-user-clock"></i>
+                  </div>
+              </div>
+      
+              <div class="col-md-4 position-relative">
+                  <label class="form-label">Movie Image</label>
+                  <input type="file" class="form-control" name="image" accept="image/*">
+                  <% if (movies.image) { %>
+                      <div class="mt-2">
+                          <img src="<%= movies.image %>" alt="Movie Poster" width="120" class="border rounded">
+                      </div>
+                  <% } %>
+                  <div class="movie-icon">
+                      <i class="fas fa-camera"></i>
+                  </div>
+              </div>
+      
+              <div class="col-md-4 position-relative">
+                  <label class="form-label">Movie Status</label>
+                  <select name="status" class="form-select">
+                      <option value="Release" <%= movies.status === 'Release' ? 'selected' : '' %>>Release</option>
+                      <option value="Re-Release" <%= movies.status === 'Re-Release' ? 'selected' : '' %>>Re-Release</option>
+                      <option value="Pending" <%= movies.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                  </select>
+                  <div class="movie-icon">
+                      <i class="fas fa-calendar-check"></i>
+                  </div>
+              </div>
+      
+              <div class="col-md-6 position-relative">
+                  <label class="form-label">Movie Category</label>
+                  <select name="category" class="form-select">
+                      <option value="Animation" <%= movies.category === 'Animation' ? 'selected' : '' %>>Animation</option>
+                      <option value="Comedy" <%= movies.category === 'Comedy' ? 'selected' : '' %>>Comedy</option>
+                      <option value="Horror" <%= movies.category === 'Horror' ? 'selected' : '' %>>Horror</option>
+                      <option value="Romance" <%= movies.category === 'Romance' ? 'selected' : '' %>>Romance</option>
+                      <option value="Sports" <%= movies.category === 'Sports' ? 'selected' : '' %>>Sports</option>
+                      <option value="Biography" <%= movies.category === 'Biography' ? 'selected' : '' %>>Biography</option>
+                      <option value="Action" <%= movies.category === 'Action' ? 'selected' : '' %>>Action</option>
+                      <option value="Drama" <%= movies.category === 'Drama' ? 'selected' : '' %>>Drama</option>
+                      <option value="Adventure" <%= movies.category === 'Adventure' ? 'selected' : '' %>>Adventure</option>
+                  </select>
+                  <div class="movie-icon">
+                      <i class="fas fa-tags"></i>
+                  </div>
+              </div>
+      
+              <div class="col-md-6 position-relative">
+                  <label class="form-label">Movie Language</label>
+                  <select name="language" class="form-select">
+                      <option value="Hindi" <%= movies.language === 'Hindi' ? 'selected' : '' %>>Hindi</option>
+                      <option value="English" <%= movies.language === 'English' ? 'selected' : '' %>>English</option>
+                      <option value="Gujarati" <%= movies.language === 'Gujarati' ? 'selected' : '' %>>Gujarati</option>
+                      <option value="Tamil" <%= movies.language === 'Tamil' ? 'selected' : '' %>>Tamil</option>
+                      <option value="Telgu" <%= movies.language === 'Telgu' ? 'selected' : '' %>>Telgu</option>
+                      <option value="Kannada" <%= movies.language === 'Kannada' ? 'selected' : '' %>>Kannada</option>
+                      <option value="Bhojpuri" <%= movies.language === 'Bhojpuri' ? 'selected' : '' %>>Bhojpuri</option>
+                      <option value="Punjabi" <%= movies.language === 'Punjabi' ? 'selected' : '' %>>Punjabi</option>
+                      <option value="Bengali" <%= movies.language === 'Bengali' ? 'selected' : '' %>>Bengali</option>
+                  </select>
+                  <div class="movie-icon">
+                      <i class="fas fa-language"></i>
+                  </div>
+              </div>
+      
+              <div class="col-md-6 position-relative">
+                  <label class="form-label">Duration (in minutes)</label>
+                  <input type="number" class="form-control" name="duration" value="<%= movies.duration %>" placeholder="Enter duration" min="1" required>
+                  <div class="movie-icon">
+                      <i class="fas fa-hourglass-half"></i>
+                  </div>
+              </div>
+      
+              <div class="col-md-6 position-relative">
+                  <label class="form-label">Rating</label>
+                  <input type="number" step="0.1" class="form-control" name="rating" value="<%= movies.rating %>" placeholder="Enter rating" min="0" max="10" required>
+                  <div class="movie-icon">
+                      <i class="fas fa-star"></i>
+                  </div>
+              </div>
+      
+              <div class="col-12 btn-container">
+                  <button type="submit" class="btn btn-pvr fw-bold px-5 py-3">
+                      <i class="fas fa-save me-2"></i> Update Movie
+                  </button>
+              </div>
+      
+          </form>
+      </div>
+      
+        <div class="form-footer">
+            <p>© 2025 PVR Cinemas Premium Experience. All rights reserved.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html> 

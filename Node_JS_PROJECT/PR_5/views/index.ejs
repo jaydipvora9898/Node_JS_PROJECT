@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    PVC Movie_Booking
+  </title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg pvr-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand pvr-logo" href="/">🎬 PVR Cinemas</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPVR"
+          aria-controls="navbarPVR" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarPVR">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/add_movie">Add Movie</a>
+            </li>
+          </ul>
+
+          <form class="d-flex search-form" role="search" action="/search" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search Movies..." name="q" aria-label="Search">
+            <button class="btn btn-warning" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+  <div id="pvrSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="https://originserver-static1-uat.pvrcinemas.com/pvrcms/banners/DIGITAL_Web%20banner%20PVR_14060_0ZKLFIsG.jpg"
+          class="d-block w-100 slider-img" alt="Banner 1">
+      </div>
+      <div class="carousel-item">
+        <img src="https://media.gettyimages.com/id/1245663827/photo/media-personnel-watching-a-movie-promo-at-ice-theatre-pvr-an-indian-multiplex-chain-cinema.jpg?s=612x612&w=gi&k=20&c=eCaEGKaeNV7W_POuyqQUgXWTiF2sAkXmggBT7ERf92w="
+          class="d-block w-100 slider-img" alt="Banner 2">
+      </div>
+      <div class="carousel-item">
+        <img src="https://www.explorationfilms.com/media/product-images/Wrath_Banner_Exploration.jpg"
+          class="d-block w-100 slider-img" alt="Banner 3">
+      </div>
+      <div class="carousel-item">
+        <img src="https://blog.stremio.com/wp-content/uploads/2018/05/featured.jpg" class="d-block w-100 slider-img"
+          alt="Banner 4">
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#pvrSlider" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#pvrSlider" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+
+  <div class="header">
+    <h1>PVR Cinemas Collection</h1>
+    <p>Experience the magic of cinema with our premium collection of movies. Book your tickets now for an unforgettable
+      experience.</p>
+  </div>
+
+  <div class="movie-card-container">
+    <% movies.forEach((movie)=> { %>
+      <div class="movie-card">
+
+        <div class="movie-poster-wrapper">
+          <img src="<%= movie.image %>" alt="<%= movie.name %>" class="movie-poster">
+          <div class="movie-rating">
+            <i class="fas fa-star"></i>
+            <%= movie.rating %>/10
+          </div>
+        </div>
+
+        <div class="movie-info">
+          <h5 class="movie-title">
+            <%= movie.name %>
+          </h5>
+          <div class="movie-meta">
+            <div class="meta-item">
+              <div class="meta-label">Status</div>
+              <div class="meta-value">
+                <%= movie.status %>
+              </div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Language</div>
+              <div class="meta-value">
+                <%= movie.language %>
+              </div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Category</div>
+              <div class="meta-value">
+                <%= movie.category %>
+              </div>
+            </div>
+          </div>
+
+          <span class="movie-age">Age: <%= movie.ageValidation %></span>
+        </div>
+
+        <div class="movie-actions">
+          <a href="/edit-movie/<%= movie._id %>" class="btn btn-pvr btn-edit">
+            <i class="fas fa-edit"></i> Edit
+          </a>
+          <a href="/delete-movie/<%= movie._id %>" class="btn btn-pvr btn-delete"
+            onclick="return confirm('Are you sure you want to delete this movie?')">
+            <i class="fas fa-trash"></i> Delete
+          </a>
+          <a href="/view-movie/<%= movie._id %>" class="btn btn-pvr btn-view">
+            <i class="fas fa-trash"></i> view
+          </a>
+        </div>
+      </div>
+      <% }) %>
+  </div>
+
+
+  <div class="pvr-footer">
+    <p>© 2023 PVR Cinemas Premium Experience. All rights reserved. | Designed with <i class="fas fa-heart"
+        style="color: var(--pvr-red);"></i> for movie lovers</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
