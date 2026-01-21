@@ -95,6 +95,9 @@
           <h5 class="movie-title">
             <%= movie.name %>
           </h5>
+          <p class="movie-desc">
+            <%= movie.desc %>
+          </p>
           <div class="movie-meta">
             <div class="meta-item">
               <div class="meta-label">Status</div>
@@ -128,7 +131,7 @@
             <i class="fas fa-trash"></i> Delete
           </a>
           <a href="/view-movie/<%= movie._id %>" class="btn btn-pvr btn-view">
-            <i class="fas fa-trash"></i> view
+            <i class="fas fa-eye"></i> View
           </a>
         </div>
       </div>
