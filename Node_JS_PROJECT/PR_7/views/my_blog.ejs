@@ -1,0 +1,134 @@
+
+<!-- ============================================================== -->
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<%- include('header') %>
+
+<div class="page-wrapper">
+  <!-- ============================================================== -->
+  <!-- Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-12 d-flex no-block align-items-center px-4">
+        <h4 class="page-title">My Blogs Details</h4>
+        <div class="ml-auto text-right">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">My Blogs</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+
+  <!-- ============================================================== -->
+  <!-- Container fluid  -->
+  <!-- ============================================================== -->
+    <div class="page-container">
+      <div class="page-header">
+        <h1>My Blog</h1>
+        <p>Discover amazing content across various categories</p>
+      </div>
+      
+      <div class="filter-section">
+        <h5>Filter Blogs by Category</h5>
+        <div class="filter-buttons">
+          <a href="/my-blog/category/all" class="filter-btn <%= category === 'all' ? 'active-btn' : '' %>">All</a>
+          <a href="/my-blog/category/Technology" class="filter-btn <%= category === 'Technology' ? 'active-btn' : '' %>">Technology</a>
+          <a href="/my-blog/category/Lifestyle" class="filter-btn <%= category === 'Lifestyle' ? 'active-btn' : '' %>">Lifestyle</a>
+          <a href="/my-blog/category/Travel" class="filter-btn <%= category === 'Travel' ? 'active-btn' : '' %>">Travel</a>
+          <a href="/my-blog/category/Health" class="filter-btn <%= category === 'Health' ? 'active-btn' : '' %>">Health</a>
+          <a href="/my-blog/category/Education" class="filter-btn <%= category === 'Education' ? 'active-btn' : '' %>">Education</a>
+          <a href="/my-blog/category/Business" class="filter-btn <%= category === 'Business' ? 'active-btn' : '' %>">Business</a>
+          <a href="/my-blog/category/Entertainment" class="filter-btn <%= category === 'Entertainment' ? 'active-btn' : '' %>">Entertainment</a>
+          <a href="my-blog/category/Science" class="filter-btn <%= category === 'Science' ? 'active-btn' : '' %>">Science</a>
+          <a href="/my-blog/category/Fashion" class="filter-btn <%= category === 'Fashion' ? 'active-btn' : '' %>">Fashion</a>
+          <a href="/my-blog/category/History & Culture" class="filter-btn <%= category === 'History & Culture' ? 'active-btn' : '' %>">History & Culture</a>
+          <a href="/my-blog/category/Photography" class="filter-btn <%= category === 'Photography' ? 'active-btn' : '' %>">Photography</a>
+        </div>
+      </div>
+    
+      <div class="blogs-container">
+        <% blogs.forEach(blog => { %>
+          <div class="blog-card">
+            <div class="image-container">
+              <img src="<%= blog.image || 'https://source.unsplash.com/random/600x400?blog' %>" class="blog-image" alt="<%= blog.title %>">
+              <div class="icon-buttons">
+                <button class="icon-btn heart-btn" onclick="toggleHeart(this)">
+                  <i class="far fa-heart"></i>
+                </button>
+                <button class="icon-btn save-btn" onclick="toggleSave(this)">
+                  <i class="far fa-bookmark"></i>
+                </button>
+              </div>
+            </div>
+    
+            <div class="card-body">
+              <span class="category-badge"><%= blog.category %></span>
+              <h5 class="card-title"><%= blog.title %></h5>
+              <p class="blog-desc">
+                <%= blog.desc.split(" ").slice(0, 15).join(" ") %>
+                <% if (blog.desc.split(" ").length > 15) { %> ... <% } %>
+              </p>
+              <p class="meta-info">
+                <i class="fas fa-calendar-alt"></i>
+                <%= new Date(blog.pubDate).toLocaleDateString('en-GB') %> |
+                <%= new Date(blog.pubDate).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) %>
+              </p>
+              <div class="author-info">
+                <img src="<%= blog.authImage || 'https://source.unsplash.com/random/100x100?person' %>" class="author-img" alt="<%= blog.author %>">
+                <span class="author-name"><%= blog.authName %></span>
+              </div>
+            </div>
+    
+            <div class="card-footer" id="footerStyle">
+              <a href="/blogs/view-singleBlog/<%= blog._id %>" class="action-btn btn-view">
+                <i class="fas fa-eye me-1"></i> View
+              </a>
+              <a href="/blogs/edit-blog/<%= blog._id %>" class="action-btn btn-edit">
+                <i class="fas fa-edit me-1"></i> Edit
+              </a>
+              <a href="/blogs/delete-blog/<%= blog._id %>" class="action-btn btn-delete">
+                <i class="fas fa-trash me-1"></i> Delete
+              </a>
+            </div>
+          </div>
+
+      
+
+        <% }) %>
+      </div>
+
+            <!-- Pagination -->
+<div class="pagination mt-4">
+  <% if (currentPage > 1) { %>
+    <a href="/my-blog/category/<%= category %>?page=<%= currentPage - 1 %>" class="page-link">Prev</a>
+  <% } %>
+
+  <% for (let i = 1; i <= totalPages; i++) { %>
+    <a href="/my-blog/category/<%= category %>?page=<%= i %>" 
+       class="page-link <%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+  <% } %>
+
+  <% if (currentPage < totalPages) { %>
+    <a href="/my-blog/category/<%= category %>?page=<%= currentPage + 1 %>" class="page-link">Next</a>
+  <% } %>
+</div>
+    
+    
+      
+    </div>
+    
+  <!-- ============================================================== -->
+  <!-- End Container fluid  -->
+  <!-- ============================================================== -->
+</div>
+
+<%- include('footer') %>
+

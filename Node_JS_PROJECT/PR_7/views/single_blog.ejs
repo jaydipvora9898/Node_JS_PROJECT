@@ -1,0 +1,248 @@
+<%- include ('header')%>
+
+<!-- ============================================================== -->
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+  <!-- ============================================================== -->
+  <!-- Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-12 d-flex no-block align-items-center px-4">
+        <h4 class="page-title">Blog Details</h4>
+        <div class="ml-auto text-right">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/my-blog/category/all">My Blogs</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Bread crumb -->
+  <!-- ============================================================== -->
+
+  <!-- ============================================================== -->
+  <!-- Container fluid  -->
+  <!-- ============================================================== -->
+  <div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-12">
+        <div class="card blog-detail-card">
+          <div class="card-body p-5">
+            <div class="blog-header mb-4">
+              <h1 class="blog-title"><%= blog.title %></h1>
+              <div class="blog-meta d-flex align-items-center justify-content-between flex-wrap mt-3">
+                <div class="author-info d-flex align-items-center me-4">
+                  <% if (blog.authImage) { %>
+                    <img src="<%= blog.authImage %>" class="author-img me-2" alt="Author">
+                  <% } else { %>
+                    <img src="https://source.unsplash.com/random/100x100?person" class="author-img me-2" alt="Author">
+                  <% } %>
+                  <span class="author-name"><%= blog.authName %></span>
+                </div>
+                <div class="left-content">
+                <div class="publish-date me-4">
+                  <i class="fas fa-calendar-alt me-1"></i> 
+                  <%= new Date(blog.pubDate).toLocaleDateString("en-GB").replace(/\//g, "-") %> 
+                </div>
+                <div class="publish-time me-4">
+                  <i class="fas fa-clock me-1"></i>
+                  <%= new Date(blog.pubDate).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) %>
+                </div>
+                <div class="category-badge badge rounded-pill ">
+                  <span class=" "><%= blog.category %></span>
+                </div>
+              </div>
+              </div>
+            </div>
+            
+            <div class="blog-featured-image mb-5">
+              <% if (blog.image && blog.image.trim() !== "") { %>
+                <img src="<%= blog.image %>" class="img-fluid rounded featured-image" alt="Blog Image">
+              <% } else { %>
+                <div class="placeholder-image d-flex align-items-center justify-content-center rounded">
+                  <span class="text-muted">No Image Available</span>
+                </div>
+              <% } %>
+            </div>
+            
+            <div class="blog-content">
+              <div class="blog-description mb-4">
+                <% blog.desc.split(/\n+/).forEach(function(paragraph) { %>
+                  <p class="lead"><%= paragraph %></p>
+                <% }) %>
+              </div>
+               
+              <div class="blog-body">
+                <p>Every blog, no matter the niche, is built on the foundation of sharing ideas, experiences, and perspectives. Whether it focuses on technology, travel, lifestyle, business, or health, the core purpose remains the same: to inform, inspire, or engage readers. Blogs act as a bridge between the writer and the audience, creating a platform for communication and storytelling that goes beyond traditional media.</p>
+                <p>Another common element across all blogs is the structure. Each blog post usually has a catchy title, an engaging introduction, well-organized body content, and a thoughtful conclusion. Visual elements such as images, videos, and graphics often complement the text to make it more appealing and easier to understand.</p>
+                <blockquote class="blockquote">
+                  <p class="mb-0">Finally, every blog shares the goal of connecting with its readers. Whether through comments, social sharing, or interactive features, blogs thrive on engagement and community.</p>
+                </blockquote>
+                <p>Writers aim to provide value, while readers seek relatable or useful content they can apply in their own lives. This shared cycle of communication and feedback makes blogging a universal medium for expression, learning, and connection.</p>
+              </div>
+            </div>
+            
+            <div class="blog-actions mt-5 pt-4 border-top">
+              <div class="d-flex justify-content-between">
+                <a href="/blogs/view-blog/category/all" class="btn btn-outline-primary">
+                </i>Back to Blogs
+                </a>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page Content -->
+    <!-- ============================================================== -->
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Container fluid  -->
+  <!-- ============================================================== -->
+</div>
+
+<style>
+
+  /* :root{
+    --primary-color : #4e54c8;
+  } */
+  .blog-detail-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    border: none;
+    margin-bottom: 2rem;
+  }
+  
+  .blog-detail-card:hover {
+    box-shadow: var(--card-hover-shadow);
+  }
+  
+  .blog-title {
+    color: var(--main-color);
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    width: 90%;
+  }
+  
+  .blog-meta {
+    color: var(--light-text);
+    font-size: 0.9rem;
+  }
+  
+  .author-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .author-name {
+    font-weight: 500;
+    color: var(--main-color);
+  }
+  
+  .featured-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+  }
+  
+  .placeholder-image {
+    height: 300px;
+    background-color: var(--light-bg);
+    color: var(--light-text);
+  }
+  
+  .blog-content {
+    line-height: 1.8;
+    color: var(--dark-text);
+  }
+  
+  .blog-content .lead {
+    font-size: 1.25rem;
+    color: var(--main-color);
+    font-weight: 400;
+  }
+  
+  .blog-body {
+    position: relative;
+    margin-top: 2rem;
+  }
+  
+  .blockquote {
+    border-left: 4px solid var(--main-color);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--primary-light);
+  }
+  
+
+  
+  .category-badge .badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--primary-gradient);
+    font-weight: 500;
+    padding: 20px;
+    color: var(--main-color);
+    font-size: 24px;
+    border: 1px solid  var(--main-color);
+  }
+  
+  .category-badge  {
+    position: absolute;
+    top: 55px;
+    right: 45px;
+    font-weight: 500;
+    padding: 10px 24px ;
+    border-radius: 50px;
+    color: var(--main-color) !important;
+    font-size: 18px;
+    border: 1px solid  var(--main-color);
+  }
+  
+  @media (max-width: 768px) {
+    .blog-title {
+      font-size: 1.8rem;
+    }
+    
+    .card-body.p-5 {
+      padding: 1.5rem !important;
+    }
+    
+    .blog-meta {
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+    
+    .blog-meta > div {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .btn-outline-primary{
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+    border-radius:  50px;
+
+  }
+</style>
+
+<%- include ('footer')%>
