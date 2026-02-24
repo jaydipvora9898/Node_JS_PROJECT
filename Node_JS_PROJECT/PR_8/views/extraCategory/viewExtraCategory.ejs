@@ -1,0 +1,103 @@
+<%- include('../header') %>
+<!-- ============================================================== -->
+  <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Page wrapper  -->
+  <!-- ============================================================== -->
+  <div class="page-wrapper">
+      <!-- ============================================================== -->
+      <!-- Bread crumb and right sidebar toggle -->
+      <!-- ============================================================== -->
+      <div class="page-breadcrumb">
+          <div class="row">
+              <div class="col-12 d-flex no-block align-items-center">
+                  <h4 class="page-title">Product Information</h4>
+                  <div class="ml-auto text-right">
+                      <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">View Extra Category</li>
+                          </ol>
+                      </nav>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Bread crumb and right sidebar toggle -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+          <!-- ============================================================== -->
+          <!-- Start Page Content -->
+          <!-- ============================================================== -->
+          <div class="row">
+              <div class="col-12">
+                  <div class="card">
+                      <div class="card-body">
+                          <h5 class="card-title m-b-0">Extra Category Information</h5>
+                      </div>
+                      <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Category Name</th>
+                                <th scope="col">Category Image</th>
+                                <th scope="col">Sub Category Name</th>
+                                <th scope="col">Extra Category Name</th>
+                                <th scope="col" colspan="2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% extraCategories.forEach((extraCategory, index) => { %>
+                                <tr>
+                                    <th scope="row"><%= index + 1 %></th>
+                                    <td><%= extraCategory.subCategoryName.categoryName.categoryName %></td>
+                                    <td>
+                                        <img src="<%= extraCategory.subCategoryName.categoryName.categoryImage %>" 
+                                             alt="Category Image" 
+                                             style="width: 50px; height: 50px; object-fit: cover;">
+                                    </td>
+                                    <td><%= extraCategory.subCategoryName.subCategoryName %></td>
+                                    <td><%= extraCategory.extraCategoryName %></td>
+                                    <td>
+                                        <a href="/extraCategory/edit-extraCategory/<%= extraCategory._id %>" class="text-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="/extraCategory/delete-extraCategory/<%= extraCategory._id %>" 
+                                           class="text-danger" 
+                                           onclick="return confirm('Are you sure you want to delete this sub-category?')">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                    
+                  </div>
+                  
+              </div>
+          </div>
+          <!-- ============================================================== -->
+          <!-- End PAge Content -->
+          <!-- ============================================================== -->
+          <!-- ============================================================== -->
+          <!-- Right sidebar -->
+          <!-- ============================================================== -->
+          <!-- .right-sidebar -->
+          <!-- ============================================================== -->
+          <!-- End Right sidebar -->
+          <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Container fluid  -->
+      <!-- ============================================================== -->
+    
+
+<%- include('../footer') %>

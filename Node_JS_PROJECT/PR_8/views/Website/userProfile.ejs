@@ -1,0 +1,409 @@
+<%- include("webHeader") %>
+
+<style>
+    :root {
+        --primary-color: #A1036D;
+        --secondary-color: #ec407a;
+        --accent-color: #ff6b6b;
+        --light-bg: #f5f7fa;
+        --dark-text: #2d3436;
+        --light-text: #7f8c8d;
+        --white: #ffffff;
+        --border-color: #e0e0e0;
+        --success-color: #27ae60;
+        --discount-color: #e74c3c;
+        --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        --card-hover-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background-color: var(--light-bg);
+        color: var(--dark-text);
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin: 30px 0;
+    }
+
+    .profile-header h1 {
+        font-size: 36px;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+
+    .profile-header p {
+        color: var(--light-text);
+        font-size: 18px;
+    }
+
+    .profile-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    /* Profile Card */
+    .profile-card {
+        background: var(--white);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+    }
+
+    .profile-card:hover {
+        box-shadow: var(--card-hover-shadow);
+    }
+
+    .profile-image {
+        text-align: center;
+        padding: 30px 20px 20px;
+        background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    }
+
+    .profile-image i {
+        font-size: 80px;
+        color: var(--white);
+        background-color: rgba(255, 255, 255, 0.2);
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+    }
+
+    .profile-info {
+        padding: 20px;
+    }
+
+    .profile-info h2 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+    }
+
+    .info-label {
+        color: var(--light-text);
+        font-weight: 500;
+    }
+
+    .info-value {
+        color: var(--dark-text);
+        font-weight: 600;
+    }
+
+    .details-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+    }
+
+    .details-card:hover {
+        box-shadow: var(--card-hover-shadow);
+    }
+
+    .details-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .details-header h2 {
+        color: var(--primary-color);
+        font-size: 24px;
+    }
+
+    .edit-btn {
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        color: var(--white);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+    }
+
+    .edit-btn i {
+        margin-right: 8px;
+    }
+
+    .edit-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .detail-item {
+        margin-bottom: 20px;
+    }
+
+    .detail-item h3 {
+        color: var(--light-text);
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .detail-item p {
+        color: var(--dark-text);
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .stats-section {
+        margin: 40px 0;
+    }
+
+    .stats-section h2 {
+        color: var(--primary-color);
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 28px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .stat-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+    }
+
+    .stat-card:hover {
+        box-shadow: var(--card-hover-shadow);
+        transform: translateY(-5px);
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        border-radius: 50%;
+        margin: 0 auto 15px;
+        font-size: 24px;
+        color: var(--white);
+    }
+
+    .icon-orders {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    }
+
+    .icon-wishlist {
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    }
+
+    .icon-joined {
+        background: linear-gradient(135deg, var(--success-color), #2ecc71);
+    }
+
+    .stat-number {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        color: var(--light-text);
+        font-weight: 500;
+    }
+
+   
+    @media (max-width: 992px) {
+        .profile-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-content {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .nav-links {
+            display: none;
+        }
+        
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+
+
+<div class="container">
+    <div class="profile-header">
+        <h1>User Profile</h1>
+        <p>Manage your account information and preferences</p>
+    </div>
+
+    <div class="profile-content">
+        <div class="profile-card">
+            <div class="profile-image">
+                <i class="fas fa-user"></i>
+                <h2><%= user.userFirstName %> <%= user.userLastName %></h2>
+            </div>
+            <div class="profile-info">
+                <div class="info-item">
+                    <span class="info-label">Member Since:</span>
+                    <span class="info-value"><%= user.createdAt.toDateString() %></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status:</span>
+                    <span class="info-value">Premium Member</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Loyalty Points:</span>
+                    <span class="info-value">1,240 pts</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-card">
+            <div class="details-header">
+                <h2>Personal Information</h2>
+                <button class="edit-btn">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+            </div>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <h3>First Name</h3>
+                    <p><%= user.userFirstName %></p>
+                </div>
+                <div class="detail-item">
+                    <h3>Last Name</h3>
+                    <p><%= user.userLastName %></p>
+                </div>
+                <div class="detail-item">
+                    <h3>Email Address</h3>
+                    <p><%= user.userEmail %></p>
+                </div>
+                <div class="detail-item">
+                    <h3>Phone Number</h3>
+                    <p><%= user.userContact %></p>
+                </div>
+                <div class="detail-item">
+                    <h3>Gender</h3>
+                    <p><%= user.userGender %></p>
+                </div>
+                <div class="detail-item">
+                    <h3>Account Status</h3>
+                    <p>Verified <i class="fas fa-check-circle" style="color: var(--success-color);"></i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-section">
+        <h2>Your Activity</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon icon-orders">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="stat-number">24</div>
+                <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon icon-wishlist">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="stat-number">13</div>
+                <div class="stat-label">Wishlist Items</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon icon-joined">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-number"><%= Math.floor((new Date() - user.createdAt) / (1000 * 60 * 60 * 24)) %> days</div>
+                <div class="stat-label">Days with us</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statNumbers = document.querySelectorAll('.stat-number');
+        
+        statNumbers.forEach(number => {
+            const target = parseInt(number.innerText);
+            let count = 0;
+            const duration = 2000;
+            const frameDuration = 1000 / 60; 
+            const totalFrames = Math.round(duration / frameDuration);
+            const easeOutQuad = t => t * (2 - t);
+            
+            const counter = setInterval(() => {
+                count++;
+                const progress = easeOutQuad(count / totalFrames);
+                const current = Math.round(target * progress);
+                
+                if (parseInt(number.innerText) !== target) {
+                    number.innerText = current;
+                } else {
+                    clearInterval(counter);
+                }
+            }, frameDuration);
+        });
+    });
+</script>
+
+<%- include("webFooter") %>

@@ -1,0 +1,67 @@
+<%- include ('../header') %>
+
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">View Product</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/product/all-product">Products</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">View Product</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm p-4">
+                    <h3 class="mb-4"><%= product.productTitle %></h3>
+
+                    <div class="text-center mb-4">
+                        <% if (product.productImage) { %>
+                            <img src="<%= product.productImage %>" alt="Product Image" style="max-width: 300px;">
+                        <% } else { %>
+                            <p>No image available</p>
+                        <% } %>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Description:</strong>
+                        <p><%= product.productDesc %></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Price:</strong>
+                        <p>$<%= product.productPrice %></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Category:</strong>
+                        <p><%= product.categoryName ? product.categoryName.categoryName : 'N/A' %></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Sub Category:</strong>
+                        <p><%= product.subCategoryName ? product.subCategoryName.subCategoryName : 'N/A' %></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Extra Category:</strong>
+                        <p><%= product.extraCategoryName ? product.extraCategoryName.extraCategoryName : 'N/A' %></p>
+                    </div>
+
+                    <a href="/product/all-product" class="btn btn-primary">Back to Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('../footer') %>

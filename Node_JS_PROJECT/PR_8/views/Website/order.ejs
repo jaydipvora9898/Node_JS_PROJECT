@@ -1,0 +1,321 @@
+<%- include("webHeader") %>
+
+<div class="container mt-4">
+    <div class="d-flex align-items-center mb-4">
+        <a href="/" class="btn btn-sm btn-outline-secondary me-3"><i class="fas fa-arrow-left"></i></a>
+        <h1 class="mb-0 meesho-heading">Your Orders</h1>
+    </div>
+
+    <% if (orders.length > 0) { %>
+        <div class="orders-container">
+            <% orders.forEach(order => { %>
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <div class="order-date">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                Ordered on <%= order.orderDate.toLocaleDateString('en-IN', { 
+                                    day: 'numeric', 
+                                    month: 'long', 
+                                    year: 'numeric' 
+                                }) %>
+                            </div>
+                            <div class="order-id">
+                                Order ID: #<%= order._id.toString().slice(-8).toUpperCase() %>
+                            </div>
+                        </div>
+                        <div class="order-status delivered">
+                            <i class="fas fa-check-circle me-1"></i> Delivered
+                        </div>
+                    </div>
+                    
+                    <div class="order-items">
+                        <% order.items.forEach(item => { %>
+                            <div class="order-item">
+                                <div class="item-image-container">
+                                    <img src="<%= item.product.productImage || 'https://via.placeholder.com/100x100?text=Product' %>" 
+                                         alt="<%= item.product.productTitle %>" class="item-image">
+                                </div>
+                                <div class="item-details">
+                                    <h3 class="item-title"><%= item.product.productTitle %></h3>
+                                    <div class="item-meta">
+                                        <span class="item-quantity">Qty: <%= item.quantity %></span>
+                                        <span class="item-price">₹<%= (item.product.productPrice * item.quantity).toLocaleString('en-IN') %></span>
+                                    </div>
+                                    <div class="item-actions">
+                                        <button class="btn-action">
+                                            <i class="fas fa-shopping-cart me-1"></i> Buy Again
+                                        </button>
+                                        <button class="btn-action">
+                                            <i class="fas fa-star me-1"></i> Rate Product
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                    
+                    <div class="order-footer">
+                        <div class="order-total">
+                            Total: <span>₹<%= order.items.reduce((total, item) => total + (item.product.productPrice * item.quantity), 0).toLocaleString('en-IN') %></span>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <div class="empty-orders">
+            <div class="empty-icon">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <h3>No orders yet</h3>
+            <p>You haven't placed any orders with us yet.</p>
+            <a href="/" class="btn btn-shop-now">
+                <i class="fas fa-shopping-cart me-2"></i>Start Shopping
+            </a>
+        </div>
+    <% } %>
+</div>
+
+<style>
+    :root {
+        --primary-color: #A1036D;
+        --secondary-color: #F05A94;
+        --accent-color: #FF9EC0;
+        --light-bg: #FFF5F9;
+        --dark-text: #333333;
+        --light-text: #666666;
+        --white: #ffffff;
+        --border-color: #FFD9E6;
+        --success-color: #2ECC71;
+        --card-shadow: 0 2px 15px rgba(236, 0, 140, 0.15);
+        --card-hover-shadow: 0 5px 20px rgba(236, 0, 140, 0.2);
+        --transition: all 0.3s ease;
+        --border-radius: 12px;
+    }
+    
+    .meesho-heading {
+        color: var(--primary-color);
+        font-weight: 700;
+        font-size: 1.8rem;
+    }
+    
+    .orders-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .order-card {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        transition: var(--transition);
+        border: 1px solid var(--border-color);
+    }
+    
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background: linear-gradient(135deg, #FFF9FC 0%, #FFF5F9 100%);
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .order-info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .order-date {
+        font-weight: 600;
+        color: var(--dark-text);
+        font-size: 0.95rem;
+    }
+    
+    .order-id {
+        font-size: 0.8rem;
+        color: var(--light-text);
+    }
+    
+    .order-status {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .order-status.delivered {
+        background: rgba(46, 204, 113, 0.15);
+        color: #27ae60;
+    }
+    
+    .order-items {
+        padding: 10px 20px;
+    }
+    
+    .order-item {
+        display: flex;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .order-item:last-child {
+        border-bottom: none;
+    }
+    
+    .item-image-container {
+        flex-shrink: 0;
+        margin-right: 15px;
+    }
+    
+    .item-image {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 5px;
+    }
+    
+    .item-details {
+        flex: 1;
+    }
+    
+    .item-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
+    
+    .item-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .item-quantity {
+        font-size: 0.9rem;
+        color: var(--light-text);
+    }
+    
+    .item-price {
+        font-weight: 700;
+        color: var(--primary-color);
+        font-size: 1rem;
+    }
+    
+    .item-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .btn-action {
+        background: var(--white);
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+    
+    .btn-action:hover {
+        background: var(--primary-color);
+        color: var(--white);
+    }
+    
+    .order-footer {
+        padding: 15px 20px;
+        background: linear-gradient(135deg, #FFF9FC 0%, #FFF5F9 100%);
+        border-top: 1px solid var(--border-color);
+        text-align: right;
+    }
+    
+    .order-total {
+        font-weight: 700;
+        color: var(--dark-text);
+        font-size: 1.1rem;
+    }
+    
+    .order-total span {
+        color: var(--primary-color);
+    }
+    
+    .empty-orders {
+        text-align: center;
+        padding: 40px 20px;
+        background: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--card-shadow);
+    }
+    
+    .empty-icon {
+        font-size: 4rem;
+        color: var(--accent-color);
+        margin-bottom: 20px;
+    }
+    
+    .empty-orders h3 {
+        color: var(--dark-text);
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    
+    .empty-orders p {
+        color: var(--light-text);
+        margin-bottom: 25px;
+    }
+    
+    .btn-shop-now {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        color: var(--white);
+        border: none;
+        padding: 10px 25px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+    
+    .btn-shop-now:hover {
+        background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+        color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(236, 0, 140, 0.3);
+    }
+    
+    @media (max-width: 768px) {
+        .order-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .order-status {
+            align-self: flex-start;
+        }
+        
+        .item-meta {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+        
+        .item-actions {
+            flex-wrap: wrap;
+        }
+        
+        .meesho-heading {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<%- include("webFooter") %>

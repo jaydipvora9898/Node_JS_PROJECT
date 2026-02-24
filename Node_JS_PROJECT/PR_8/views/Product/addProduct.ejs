@@ -1,0 +1,158 @@
+<%- include ('../header') %>
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Product Information</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form class="form-horizontal" action="/product/add-product" method="post"   
+                            enctype="multipart/form-data">
+                            <div class="card-body">
+                                <h4 class="card-title">Product Information</h4>
+                                <div class="form-group row">
+                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Product Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="fname" placeholder="Product Title"
+                                            name="productTitle">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <label for="desc" class="col-sm-3 text-right control-label col-form-label">
+                                      Product Description
+                                    </label>
+                                    <div class="col-sm-9">
+                                      <textarea class="form-control" id="desc" name="productDesc" rows="3" placeholder="Product description"></textarea>
+                                    </div>
+                                  </div>
+                                  
+                                <div class="form-group row">
+                                    <label for="desc" class="col-sm-3 text-right control-label col-form-label">
+                                      Product Price
+                                    </label>
+                                    <div class="col-sm-9">
+                                      <input class="form-control" type="number" id="desc" name="productPrice"  placeholder="Product description">
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Category Name</label>
+                                    <div class="col-sm-9">
+                                        <select name="categoryName" class="form-control">
+                                            <option value="">Select Catrgory</option>
+                                            <% categories.forEach((cat) => { %>
+                                                <option value="<%= cat._id %>"><%= cat.categoryName %></option>
+
+                                          <%  }) %>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                              
+                                <div class="form-group row">
+                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Sub Category Name</label>
+                                    <div class="col-sm-9">
+                                        <select name="subCategoryName" class="form-control">
+                                            <option value="">Select Sub Catrgory</option>
+                                            <% subCategories.forEach((subCat) => { %>
+                                                <option value="<%= subCat._id %>"><%= subCat.subCategoryName %></option>
+
+                                          <%  }) %>
+                                        </select>
+                                            
+                                    </div>
+                                </div>
+                              
+                                <div class="form-group row">
+                                    <label for="extraCategory" class="col-sm-3 text-right control-label col-form-label">Extra Category</label>
+                                    <div class="col-sm-9">
+                                        <select name="extraCategoryName" class="form-control">
+                                            <option value="">Select Extra Category</option>
+                                            <% extraCategories.forEach((extraCat) => { %>
+                                                <option value="<%= extraCat._id %>"><%= extraCat.extraCategoryName %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                    
+                                <div class="form-group row">
+                                    <label for="desc" class="col-sm-3 text-right control-label col-form-label">
+                                      Product Descount
+                                    </label>
+                                    <div class="col-sm-9">
+                                      <input class="form-control" type="number" id="desc" name="productDescount"  placeholder="Product Descount">
+                                    </div>
+                                  </div>
+                            
+                                <div class="form-group row">
+                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Product
+                                        Image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" class="form-control" id="fname" placeholder="Blog Image"
+                                            name="productImage">
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="submit" class="btn submit-btn">Add Product</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- editor -->
+
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+
+    
+
+    <%- include ('../footer') %>
+    
