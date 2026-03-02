@@ -32,7 +32,7 @@ app.use(
     saveUninitialized: false,
     resave: false,
     store :  mongoStore.create({
-      mongoUrl:  "mongodb+srv://yogeshrd1708:yogesh17RD@cluster0.8rdbura.mongodb.net/", 
+      mongoUrl:  "mongodb+srv://JaydipVora:J_1302@cluster0.mla04j8.mongodb.net/Meesho_App", 
       collectionName : "sessions"
     }),
     cookie: {
@@ -46,6 +46,7 @@ app.use(passport.session());
 app.use(passport.setAutheticatUser);
 app.use((req, res, next) => {
   res.locals.session = req.session;
+  res.locals.user = req.user || null;
   next();
 });
 app.use(flashMessage.setFlashMessage);
